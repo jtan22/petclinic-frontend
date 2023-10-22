@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:fragment="layout (template, menu)">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+    <title>Pet Clinic</title>
+</head>
+<body>
+<nav>
+    <div>
+        <a th:href="@{/}"><img th:src="@{/images/spring-boot.png}" /></a>
+        <div>
+            <ul th:remove="all">
+                <li th:fragment="menuItem (link, active, title, glyph, text)">
+                    <a th:href="@{${link}}" th:title="${title}">
+                        <span th:text="${text}"></span>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li th:replace="~{::menuItem ('/', 'home', 'home page', 'home', 'Home')}"></li>
+                <li th:replace="~{::menuItem ('/owners/find', 'owners', 'find owners', 'search', 'Find Owners')}"></li>
+                <li th:replace="~{::menuItem ('/vets/list', 'vets', 'veterinarians', 'th-list', 'Veterinarians')}"></li>
+                <li th:replace="~{::menuItem ('/oops', 'error', 'expected error', 'exclamation-triangle', 'Error')}"></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
+    <th:block th:insert="${template}"></th:block>
+    <br>
+    <div><img th:src="@{/images/spring-pivotal-logo.png}"/></div>
+</div>
+</body>
+</html>
