@@ -2,22 +2,33 @@ package com.bw.petclinic.frontend.domain;
 
 public class Owner {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String address;
     private String city;
     private String telephone;
+    private String pets;
 
     public Owner() {
 
     }
 
-    public Owner(String firstName, String lastName, String address, String city, String telephone) {
+    public Owner(int id, String firstName, String lastName, String address, String city, String telephone) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.telephone = telephone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLastName() {
@@ -60,14 +71,24 @@ public class Owner {
         this.firstName = firstName;
     }
 
+    public String getPets() {
+        return pets;
+    }
+
+    public void setPets(String pets) {
+        this.pets = pets;
+    }
+
     @Override
     public String toString() {
         return "Owner{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", pets='" + pets + '\'' +
                 '}';
     }
 }
