@@ -21,4 +21,8 @@ public class PetServiceImpl implements PetService {
         return null;
     }
 
+    public Pet getById(int id) {
+        return null;
+    }
+
 }

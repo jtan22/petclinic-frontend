@@ -13,4 +13,6 @@ public interface PetService {
 
     List<String> getPetTypes();
 
+    Pet getById(int id);
+
 }

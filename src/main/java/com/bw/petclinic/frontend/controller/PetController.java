@@ -34,4 +34,13 @@ public class PetController {
         return "petForm";
     }
 
+    @GetMapping("/pets/edit")
+    public String editPet(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Model model) {
+        LOG.info("GET /pets/edit with ownerId [" + ownerId + "], petId [" + petId + "]");
+        model.addAttribute("owner", ownerService.getById(ownerId));
+        model.addAttribute("pet", petService.getById(petId));
+        model.addAttribute("types", petService.getPetTypes());
+        return "petForm";
+    }
+
 }

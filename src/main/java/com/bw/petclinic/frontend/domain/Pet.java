@@ -1,5 +1,7 @@
 package com.bw.petclinic.frontend.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -8,6 +10,7 @@ public class Pet {
 
     private int id;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String type;
     private int ownerId;

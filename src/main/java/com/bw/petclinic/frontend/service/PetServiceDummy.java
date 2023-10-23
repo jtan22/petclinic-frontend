@@ -52,4 +52,12 @@ public class PetServiceDummy implements PetService {
         return List.of("Cat", "Dog", "Lizard", "Snake", "Bird", "Hamster");
     }
 
+    public Pet getById(int id) {
+        return PETS.values().stream()
+                .flatMap(Collection::stream)
+                .filter(pet -> pet.getId() == id)
+                .findFirst()
+                .orElseGet(Pet::new);
+    }
+
 }
