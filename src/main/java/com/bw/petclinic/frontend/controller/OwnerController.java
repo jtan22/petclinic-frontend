@@ -19,4 +19,11 @@ public class OwnerController {
         return "ownerFind";
     }
 
+    @GetMapping("/owners/new")
+    public String addOwner(Model model) {
+        LOG.info("Get /owners/new");
+        model.addAttribute("owner", new Owner());
+        return "ownerForm";
+    }
+
 }
