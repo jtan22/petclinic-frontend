@@ -53,10 +53,17 @@ public class OwnerController {
         return "ownerForm";
     }
 
+    @GetMapping("/owners/edit")
+    public String editOwner(@RequestParam("ownerId") int ownerId, Model model) {
+        LOG.info("Get /owners/edit?ownerId");
+        model.addAttribute("owner", ownerService.getById(ownerId));
+        return "ownerForm";
+    }
+
     @GetMapping("/owners/list")
     public String listOwners(@RequestParam(name = "page", defaultValue = "1") int page, Owner owner,
                              BindingResult bindingResult, Model model) {
-        LOG.info("GET /owners/list");
+        LOG.info("GET /owners/list?page");
         if (StringUtils.isBlank(owner.getLastName())) {
             owner.setLastName("");
         }
