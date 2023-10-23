@@ -4,10 +4,7 @@ import com.bw.petclinic.frontend.domain.Pet;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +46,10 @@ public class PetServiceDummy implements PetService {
 
     public Set<Pet> getPets(int ownerId) {
         return PETS.containsKey(ownerId) ? PETS.get(ownerId) : new HashSet<>();
+    }
+
+    public List<String> getPetTypes() {
+        return List.of("Cat", "Dog", "Lizard", "Snake", "Bird", "Hamster");
     }
 
 }

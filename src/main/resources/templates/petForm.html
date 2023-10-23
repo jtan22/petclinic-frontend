@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Clinic Pet Form</title>
+</head>
+<body>
+<h2>Pet Form</h2>
+<form th:object="${pet}" method="POST">
+    <label>Owner</label>
+    <div><span th:text="${owner.firstName + ' ' + owner.lastName}"></span></div>
+    <br>
+    <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+    <input th:replace="~{fragments/inputField :: input ('Birth Date', 'birthDate', 'date')}" />
+    <input th:replace="~{fragments/selectField :: select ('Type', 'type', ${types})}" />
+    <br>
+    <div>
+        <button type="submit" th:if="*{id}">Update Pet</button>
+        <button type="submit" th:unless="*{id}">Add Pet</button>
+    </div>
+</form>
+</body>
+</html>

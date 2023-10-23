@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Clinic Select Field</title>
+</head>
+<body>
+<form>
+    <th:block th:fragment="select (label, name, items)">
+        <label th:text="${label}"></label>
+        <div>
+            <select th:field="*{__${name}__}">
+                <option th:each="item : ${items}" th:value="${item}" th:text="${item}"></option>
+            </select>
+            <th:block th:if="${#fields.hasErrors(name)}">
+                <span th:errors="${__${name}__}"></span>
+            </th:block>
+        </div>
+    </th:block>
+</form>
+</body>
+</html>
