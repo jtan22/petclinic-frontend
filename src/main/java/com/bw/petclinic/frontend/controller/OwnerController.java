@@ -69,11 +69,12 @@ public class OwnerController {
     }
 
     @PostMapping("/owners/edit")
-    public String updateOwner(Owner owner, BindingResult bindingResult) {
+    public String updateOwner(@RequestParam("ownerId") int ownerId, Owner owner, BindingResult bindingResult) {
         LOG.info("POST /owners/edit");
         if (bindingResult.hasErrors()) {
             return "ownerForm";
         }
+        owner.setId(ownerId);
         ownerService.save(owner);
         return "redirect:/owners?ownerId=" + owner.getId();
     }
