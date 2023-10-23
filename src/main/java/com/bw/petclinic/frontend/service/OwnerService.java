@@ -8,4 +8,6 @@ public interface OwnerService {
 
     Page<Owner> findByLastName(String lastName, PageRequest pageRequest);
 
+    Owner getById(int id);
+
 }

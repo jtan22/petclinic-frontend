@@ -12,4 +12,7 @@ public class OwnerServiceImpl implements OwnerService{
         return null;
     }
 
+    public Owner getById(int id) {
+        return null;
+    }
 }

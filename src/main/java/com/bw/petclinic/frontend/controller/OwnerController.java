@@ -1,8 +1,10 @@
 package com.bw.petclinic.frontend.controller;
 
 import com.bw.petclinic.frontend.domain.Owner;
+import com.bw.petclinic.frontend.domain.Pet;
 import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
+import com.bw.petclinic.frontend.service.VisitService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Set;
+
 @Controller
 public class OwnerController {
 
@@ -28,6 +32,10 @@ public class OwnerController {
     @Autowired
     @Qualifier("petServiceDummy")
     private PetService petService;
+
+    @Autowired
+    @Qualifier("visitServiceDummy")
+    private VisitService visitService;
 
     private static final Logger LOG = LoggerFactory.getLogger(OwnerController.class);
 
@@ -58,11 +66,26 @@ public class OwnerController {
             return "ownerFind";
         }
         for (Owner o : owners.getContent()) {
-            o.setPets(petService.getPetNames(o.getId()));
+            o.setPetNames(petService.getPetNames(o.getId()));
         }
+        LOG.debug("Current page number = [" + page + "]");
+        LOG.debug("Current page size = [" + owners.getContent().size() + "]");
+        LOG.debug("Total page number = [" + owners.getTotalPages() + "]");
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", owners.getTotalPages());
         model.addAttribute("owners", owners.getContent());
         return "ownerList";
+    }
+
+    @GetMapping("/owners")
+    public String ownerDetails(@RequestParam("ownerId") int ownerId, Model model) {
+        LOG.info("GET /owners?ownerId");
+        Owner owner = ownerService.getById(ownerId);
+        owner.setPets(petService.getPets(ownerId));
+        for (Pet pet : owner.getPets()) {
+            pet.setVisits(visitService.getVisits(pet.getId()));
+        }
+        model.addAttribute("owner", owner);
+        return "ownerDetails";
     }
 }

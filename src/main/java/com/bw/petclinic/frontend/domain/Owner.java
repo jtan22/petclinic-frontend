@@ -1,5 +1,8 @@
 package com.bw.petclinic.frontend.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Owner {
 
     private int id;
@@ -8,7 +11,8 @@ public class Owner {
     private String address;
     private String city;
     private String telephone;
-    private String pets;
+    private String petNames;
+    private Set<Pet> pets = new HashSet<>();
 
     public Owner() {
 
@@ -71,11 +75,19 @@ public class Owner {
         this.firstName = firstName;
     }
 
-    public String getPets() {
+    public String getPetNames() {
+        return petNames;
+    }
+
+    public void setPetNames(String petNames) {
+        this.petNames = petNames;
+    }
+
+    public Set<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(String pets) {
+    public void setPets(Set<Pet> pets) {
         this.pets = pets;
     }
 
@@ -88,7 +100,8 @@ public class Owner {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", pets='" + pets + '\'' +
+                ", petNames='" + petNames + '\'' +
+                ", pets=" + pets +
                 '}';
     }
 }
