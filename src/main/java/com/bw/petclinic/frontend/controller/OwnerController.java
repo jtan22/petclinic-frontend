@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
@@ -47,10 +48,17 @@ public class OwnerController {
     }
 
     @GetMapping("/owners/new")
-    public String addOwner(Model model) {
+    public String newOwner(Model model) {
         LOG.info("Get /owners/new");
         model.addAttribute("owner", new Owner());
         return "ownerForm";
+    }
+
+    @PostMapping("/owners/new")
+    public String addOwner(Owner owner, BindingResult bindingResult) {
+        LOG.info("POST /owners/new");
+        ownerService.save(owner);
+        return "redirect:/owners?ownerId=" + owner.getId();
     }
 
     @GetMapping("/owners/edit")
@@ -58,6 +66,16 @@ public class OwnerController {
         LOG.info("Get /owners/edit?ownerId");
         model.addAttribute("owner", ownerService.getById(ownerId));
         return "ownerForm";
+    }
+
+    @PostMapping("/owners/edit")
+    public String updateOwner(Owner owner, BindingResult bindingResult) {
+        LOG.info("POST /owners/edit");
+        if (bindingResult.hasErrors()) {
+            return "ownerForm";
+        }
+        ownerService.save(owner);
+        return "redirect:/owners?ownerId=" + owner.getId();
     }
 
     @GetMapping("/owners/list")

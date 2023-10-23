@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class OwnerServiceDummy implements OwnerService {
 
     private static final Map<Integer, Owner> OWNERS = new HashMap<>();
+    private static final AtomicInteger OWNER_ID = new AtomicInteger(10);
 
     public OwnerServiceDummy() {
         OWNERS.put(1, new Owner(1, "George", "Franklin", "110 W. Liberty St.", "Madison", "6085551023"));
@@ -32,6 +34,18 @@ public class OwnerServiceDummy implements OwnerService {
 
     public Owner getById(int id) {
         return OWNERS.containsKey(id) ? OWNERS.get(id) : new Owner();
+    }
+
+    public void save(Owner owner) {
+        if (owner.getId() == 0) {
+            int nextId = OWNER_ID.incrementAndGet();
+            owner.setId(nextId);
+            OWNERS.put(nextId, owner);
+        } else {
+            Owner existingOwner = OWNERS.get(owner.getId());
+            owner.setPets(existingOwner.getPets());
+            OWNERS.put(owner.getId(), owner);
+        }
     }
 
     public Page<Owner> findByLastName(String lastName, PageRequest pageRequest) {

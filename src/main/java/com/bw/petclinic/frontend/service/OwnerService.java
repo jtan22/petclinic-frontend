@@ -10,4 +10,6 @@ public interface OwnerService {
 
     Owner getById(int id);
 
+    void save(Owner owner);
+
 }

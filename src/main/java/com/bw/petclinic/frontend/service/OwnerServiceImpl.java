@@ -15,4 +15,9 @@ public class OwnerServiceImpl implements OwnerService{
     public Owner getById(int id) {
         return null;
     }
+
+    public void save(Owner owner) {
+
+    }
+
 }

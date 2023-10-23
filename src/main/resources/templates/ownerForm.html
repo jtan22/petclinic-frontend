@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Owner Form</h2>
-<form th:action="@{/owners/new}" th:object="${owner}" method="POST">
+<form th:object="${owner}" method="POST">
     <input th:replace="~{fragments/inputField :: input ('First Name', 'firstName', 'text')}" />
     <input th:replace="~{fragments/inputField :: input ('Last Name', 'lastName', 'text')}" />
     <input th:replace="~{fragments/inputField :: input ('Address', 'address', 'text')}" />
@@ -17,6 +17,7 @@
         <button type="submit" th:if="*{id}">Update Owner</button>
         <button type="submit" th:unless="*{id}">Add Owner</button>
     </div>
+    <input type="hidden" th:field="*{id}" />
 </form>
 </body>
 </html>
