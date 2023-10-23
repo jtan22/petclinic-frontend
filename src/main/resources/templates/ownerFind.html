@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Clinic Find Owner</title>
+</head>
+<body>
+<h2>Find Owner</h2>
+<form th:action="@{/owners/list}" th:object="${owner}" method="GET">
+    <div><label>Last Name</label></div>
+    <div><input th:field="*{lastName}" /></div>
+    <div th:if="${#fields.hasErrors()}">
+        <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+    </div>
+    <br>
+    <div>
+        <button type="submit">Find Owner</button>
+        <a th:href="@{/owners/new}">Add Owner</a>
+    </div>
+</form>
+</body>
+</html>
