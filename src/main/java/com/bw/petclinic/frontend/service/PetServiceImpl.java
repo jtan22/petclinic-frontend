@@ -25,4 +25,8 @@ public class PetServiceImpl implements PetService {
         return null;
     }
 
+    public void save(int ownerId, Pet pet) {
+
+    }
+
 }

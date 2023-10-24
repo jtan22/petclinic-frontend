@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -12,30 +13,32 @@ public class PetServiceDummy implements PetService {
 
     private static final Map<Integer, Set<Pet>> PETS = new HashMap<>();
 
+    private static final AtomicInteger LAST_PET_ID = new AtomicInteger(13);
+
     public PetServiceDummy() {
         PETS.put(1, Set.of(
-                new Pet(1, "Leo", LocalDate.of(2000, 9, 7), "cat", 1)));
+                new Pet(1, "Leo", LocalDate.of(2000, 9, 7), "Cat", 1)));
         PETS.put(2, Set.of(
-                new Pet(2, "Basil", LocalDate.of(2002, 8, 6), "hamster", 2)));
+                new Pet(2, "Basil", LocalDate.of(2002, 8, 6), "Hamster", 2)));
         PETS.put(3, Set.of(
-                new Pet(3, "Rosy", LocalDate.of(2001, 4, 17), "dog", 3),
-                new Pet(4, "Jewel", LocalDate.of(2000, 3, 7), "dog", 3)));
+                new Pet(3, "Rosy", LocalDate.of(2001, 4, 17), "Dog", 3),
+                new Pet(4, "Jewel", LocalDate.of(2000, 3, 7), "Dog", 3)));
         PETS.put(4, Set.of(
-                new Pet(5, "Iggy", LocalDate.of(2000, 11, 30), "lizard", 4)));
+                new Pet(5, "Iggy", LocalDate.of(2000, 11, 30), "Lizard", 4)));
         PETS.put(5, Set.of(
-                new Pet(6, "George", LocalDate.of(2000, 1, 20), "snake", 5)));
+                new Pet(6, "George", LocalDate.of(2000, 1, 20), "Snake", 5)));
         PETS.put(6, Set.of(
-                new Pet(7, "Samantha", LocalDate.of(1995, 9, 4), "cat", 6),
-                new Pet(8, "Max", LocalDate.of(1995, 9, 4), "dog", 6)));
+                new Pet(7, "Samantha", LocalDate.of(1995, 9, 4), "Cat", 6),
+                new Pet(8, "Max", LocalDate.of(1995, 9, 4), "Dog", 6)));
         PETS.put(7, Set.of(
-                new Pet(9, "Lucky", LocalDate.of(1999, 8, 6), "bird", 7)));
+                new Pet(9, "Lucky", LocalDate.of(1999, 8, 6), "Bird", 7)));
         PETS.put(8, Set.of(
-                new Pet(10, "Mulligan", LocalDate.of(1997, 2, 24), "dog", 8)));
+                new Pet(10, "Mulligan", LocalDate.of(1997, 2, 24), "Dog", 8)));
         PETS.put(9, Set.of(
-                new Pet(11, "Freddy", LocalDate.of(2000, 3, 9), "bird", 9)));
+                new Pet(11, "Freddy", LocalDate.of(2000, 3, 9), "Bird", 9)));
         PETS.put(10, Set.of(
-                new Pet(12, "Lucky", LocalDate.of(2000, 6, 24), "dog", 10),
-                new Pet(13, "Sly", LocalDate.of(2002, 6, 8), "cat", 10)));
+                new Pet(12, "Lucky", LocalDate.of(2000, 6, 24), "Dog", 10),
+                new Pet(13, "Sly", LocalDate.of(2002, 6, 8), "Cat", 10)));
     }
 
     public String getPetNames(int ownerId) {
@@ -58,6 +61,21 @@ public class PetServiceDummy implements PetService {
                 .filter(pet -> pet.getId() == id)
                 .findFirst()
                 .orElseGet(Pet::new);
+    }
+
+    public void save(int ownerId, Pet pet) {
+        if (pet.getId() == 0) {
+            pet.setId(LAST_PET_ID.incrementAndGet());
+            pet.setOwnerId(ownerId);
+        }
+        Set<Pet> pets = new HashSet<>();
+        for (Pet p : PETS.get(ownerId)) {
+            if (p.getId() != pet.getId()) {
+                pets.add(p);
+            }
+        }
+        pets.add(pet);
+        PETS.put(ownerId, pets);
     }
 
 }

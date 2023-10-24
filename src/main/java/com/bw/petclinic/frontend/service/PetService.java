@@ -15,4 +15,6 @@ public interface PetService {
 
     Pet getById(int id);
 
+    void save(int ownerId, Pet pet);
+
 }
