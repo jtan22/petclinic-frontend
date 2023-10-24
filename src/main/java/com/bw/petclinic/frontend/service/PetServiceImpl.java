@@ -4,7 +4,6 @@ import com.bw.petclinic.frontend.domain.Pet;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -13,7 +12,7 @@ public class PetServiceImpl implements PetService {
         return null;
     }
 
-    public Set<Pet> getPets(int ownerId) {
+    public List<Pet> getPets(int ownerId) {
         return null;
     }
 

@@ -1,6 +1,8 @@
 package com.bw.petclinic.frontend.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Owner {
@@ -12,7 +14,7 @@ public class Owner {
     private String city;
     private String telephone;
     private String petNames;
-    private Set<Pet> pets = new HashSet<>();
+    private List<Pet> pets = new ArrayList<>();
 
     public Owner() {
 
@@ -83,11 +85,11 @@ public class Owner {
         this.petNames = petNames;
     }
 
-    public Set<Pet> getPets() {
+    public List<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(Set<Pet> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 
