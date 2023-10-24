@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class VisitServiceDummy implements VisitService {
 
     private static final Map<Integer, Set<Visit>> VISITS = new HashMap<>();
+
+    private static final AtomicInteger LAST_VISIT_ID = new AtomicInteger(4);
 
     public VisitServiceDummy() {
         VISITS.put(7, Set.of(
@@ -22,6 +25,17 @@ public class VisitServiceDummy implements VisitService {
 
     public Set<Visit> getVisits(int petId) {
         return VISITS.containsKey(petId) ? VISITS.get(petId) : new HashSet<>();
+    }
+
+    public void save(int petId, Visit visit) {
+        visit.setId(LAST_VISIT_ID.incrementAndGet());
+        visit.setPetId(petId);
+        Set<Visit> visits = new HashSet<>();
+        if (VISITS.containsKey(petId)) {
+            visits.addAll(VISITS.get(petId));
+        }
+        visits.add(visit);
+        VISITS.put(petId, visits);
     }
 
 }

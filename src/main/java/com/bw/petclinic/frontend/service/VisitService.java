@@ -8,4 +8,6 @@ public interface VisitService {
 
     Set<Visit> getVisits(int petId);
 
+    void save(int petId, Visit visit);
+
 }

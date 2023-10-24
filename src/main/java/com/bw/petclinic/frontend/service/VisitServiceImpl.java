@@ -12,4 +12,8 @@ public class VisitServiceImpl implements VisitService {
         return null;
     }
 
+    public void save(int petId, Visit visit) {
+
+    }
+
 }
