@@ -27,7 +27,7 @@ public class OwnerController {
     private static final int PAGE_SIZE = 5;
 
     @Autowired
-    @Qualifier("ownerServiceDummy")
+    @Qualifier("ownerServiceImpl")
     private OwnerService ownerService;
 
     @Autowired
@@ -57,8 +57,8 @@ public class OwnerController {
     @PostMapping("/owners/new")
     public String addOwner(Owner owner, BindingResult bindingResult) {
         LOG.info("POST /owners/new");
-        ownerService.save(owner);
-        return "redirect:/owners?ownerId=" + owner.getId();
+        Owner savedOwner = ownerService.save(owner);
+        return "redirect:/owners?ownerId=" + savedOwner.getId();
     }
 
     @GetMapping("/owners/edit")
@@ -86,7 +86,7 @@ public class OwnerController {
         if (StringUtils.isBlank(owner.getLastName())) {
             owner.setLastName("");
         }
-        Page<Owner> owners = ownerService.findByLastName(owner.getLastName(), PageRequest.of(page - 1, PAGE_SIZE));
+        Page<Owner> owners = ownerService.findByLastName(owner.getLastName(), page - 1, PAGE_SIZE);
         if (owners.isEmpty()) {
             bindingResult.rejectValue("lastName", "notFound", "Not Found");
             return "ownerFind";

@@ -36,7 +36,7 @@ public class OwnerServiceDummy implements OwnerService {
         return OWNERS.containsKey(id) ? OWNERS.get(id) : new Owner();
     }
 
-    public void save(Owner owner) {
+    public Owner save(Owner owner) {
         if (owner.getId() == 0) {
             int nextId = OWNER_ID.incrementAndGet();
             owner.setId(nextId);
@@ -46,22 +46,23 @@ public class OwnerServiceDummy implements OwnerService {
             owner.setPets(existingOwner.getPets());
             OWNERS.put(owner.getId(), owner);
         }
+        return owner;
     }
 
-    public Page<Owner> findByLastName(String lastName, PageRequest pageRequest) {
+    public Page<Owner> findByLastName(String lastName, int pageNumber, int pageSize) {
         List<Owner> owners = new ArrayList<>();
         List<Owner> matchedOwners = findMatchedOwners(lastName);
         if (matchedOwners.isEmpty()) {
             return new PageImpl<>(owners);
         }
-        int start = pageRequest.getPageNumber() * pageRequest.getPageSize();
-        int stop = (pageRequest.getPageNumber() + 1) * pageRequest.getPageSize();
+        int start = pageNumber * pageSize;
+        int stop = (pageNumber + 1) * pageSize;
         if (start >= 0 && start <= matchedOwners.size()) {
             for (int i = start; i < Math.min(stop, matchedOwners.size()); i++) {
                 owners.add(matchedOwners.get(i));
             }
         }
-        return new PageImpl<>(owners, pageRequest, matchedOwners.size());
+        return new PageImpl<>(owners, PageRequest.of(pageNumber, pageSize), matchedOwners.size());
     }
 
     private List<Owner> findMatchedOwners(String lastName) {

@@ -6,10 +6,10 @@ import org.springframework.data.domain.PageRequest;
 
 public interface OwnerService {
 
-    Page<Owner> findByLastName(String lastName, PageRequest pageRequest);
+    Page<Owner> findByLastName(String lastName, int pageNumber, int pageSize);
 
     Owner getById(int id);
 
-    void save(Owner owner);
+    Owner save(Owner owner);
 
 }
