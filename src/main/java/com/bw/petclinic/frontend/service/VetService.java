@@ -6,6 +6,6 @@ import org.springframework.data.domain.PageRequest;
 
 public interface VetService {
 
-    Page<Vet> getVets(PageRequest pageRequest);
+    Page<Vet> getVets(int pageNumber, int pageSize);
 
 }

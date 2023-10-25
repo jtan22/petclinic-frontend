@@ -32,16 +32,16 @@ public class VetServiceDummy implements VetService {
                 new HashSet<>()));
     }
 
-    public Page<Vet> getVets(PageRequest pageRequest) {
+    public Page<Vet> getVets(int pageNumber, int pageSize) {
         List<Vet> vets = new ArrayList<>();
-        int start = pageRequest.getPageNumber() * pageRequest.getPageSize();
-        int stop = (pageRequest.getPageNumber() + 1) * pageRequest.getPageSize();
+        int start = pageNumber * pageSize;
+        int stop = (pageNumber + 1) * pageSize;
         if (start >= 0 && start <= VETS.size()) {
             for (int i = start; i < Math.min(stop, VETS.size()); i++) {
                 vets.add(VETS.get(i));
             }
         }
-        return new PageImpl<>(vets, pageRequest, VETS.size());
+        return new PageImpl<>(vets, PageRequest.of(pageNumber, pageSize), VETS.size());
     }
 
 }
