@@ -35,7 +35,7 @@ public class OwnerController {
     private PetService petService;
 
     @Autowired
-    @Qualifier("visitServiceDummy")
+    @Qualifier("visitServiceImpl")
     private VisitService visitService;
 
     private static final Logger LOG = LoggerFactory.getLogger(OwnerController.class);

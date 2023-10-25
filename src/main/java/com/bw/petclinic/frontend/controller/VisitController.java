@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VisitController {
 
     @Autowired
-    @Qualifier("ownerServiceDummy")
+    @Qualifier("ownerServiceImpl")
     private OwnerService ownerService;
 
     @Autowired
-    @Qualifier("petServiceDummy")
+    @Qualifier("petServiceImpl")
     private PetService petService;
 
     @Autowired
-    @Qualifier("visitServiceDummy")
+    @Qualifier("visitServiceImpl")
     private VisitService visitService;
 
     private static final Logger LOG = LoggerFactory.getLogger(VisitController.class);

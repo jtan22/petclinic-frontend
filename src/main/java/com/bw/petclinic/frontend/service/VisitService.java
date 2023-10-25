@@ -8,6 +8,6 @@ public interface VisitService {
 
     List<Visit> getVisits(int petId);
 
-    void save(Visit visit);
+    Visit save(Visit visit);
 
 }

@@ -27,7 +27,7 @@ public class VisitServiceDummy implements VisitService {
         return VISITS.containsKey(petId) ? VISITS.get(petId) : new ArrayList<>();
     }
 
-    public void save(Visit visit) {
+    public Visit save(Visit visit) {
         visit.setId(LAST_VISIT_ID.incrementAndGet());
         List<Visit> visits = new ArrayList<>();
         if (VISITS.containsKey(visit.getPetId())) {
@@ -35,6 +35,7 @@ public class VisitServiceDummy implements VisitService {
         }
         visits.add(visit);
         VISITS.put(visit.getPetId(), visits);
+        return visit;
     }
 
 }
