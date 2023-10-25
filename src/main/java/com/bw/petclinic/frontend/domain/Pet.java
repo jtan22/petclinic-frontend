@@ -3,8 +3,8 @@ package com.bw.petclinic.frontend.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pet {
 
@@ -14,7 +14,7 @@ public class Pet {
     private LocalDate birthDate;
     private PetType type;
     private int ownerId;
-    private Set<Visit> visits = new LinkedHashSet<>();
+    private List<Visit> visits = new ArrayList<>();
 
     public Pet() {
 
@@ -68,11 +68,11 @@ public class Pet {
         this.ownerId = ownerId;
     }
 
-    public Set<Visit> getVisits() {
+    public List<Visit> getVisits() {
         return visits;
     }
 
-    public void setVisits(Set<Visit> visits) {
+    public void setVisits(List<Visit> visits) {
         this.visits = visits;
     }
 

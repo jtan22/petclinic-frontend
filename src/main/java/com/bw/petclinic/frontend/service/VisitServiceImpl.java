@@ -3,12 +3,12 @@ package com.bw.petclinic.frontend.service;
 import com.bw.petclinic.frontend.domain.Visit;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class VisitServiceImpl implements VisitService {
 
-    public Set<Visit> getVisits(int petId) {
+    public List<Visit> getVisits(int petId) {
         return null;
     }
 

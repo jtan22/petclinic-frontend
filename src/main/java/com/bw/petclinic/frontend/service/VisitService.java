@@ -2,11 +2,11 @@ package com.bw.petclinic.frontend.service;
 
 import com.bw.petclinic.frontend.domain.Visit;
 
-import java.util.Set;
+import java.util.List;
 
 public interface VisitService {
 
-    Set<Visit> getVisits(int petId);
+    List<Visit> getVisits(int petId);
 
     void save(int petId, Visit visit);
 
