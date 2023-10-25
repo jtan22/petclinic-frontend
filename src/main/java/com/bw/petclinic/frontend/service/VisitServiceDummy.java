@@ -27,15 +27,14 @@ public class VisitServiceDummy implements VisitService {
         return VISITS.containsKey(petId) ? VISITS.get(petId) : new ArrayList<>();
     }
 
-    public void save(int petId, Visit visit) {
+    public void save(Visit visit) {
         visit.setId(LAST_VISIT_ID.incrementAndGet());
-        visit.setPetId(petId);
         List<Visit> visits = new ArrayList<>();
-        if (VISITS.containsKey(petId)) {
-            visits.addAll(VISITS.get(petId));
+        if (VISITS.containsKey(visit.getPetId())) {
+            visits.addAll(VISITS.get(visit.getPetId()));
         }
         visits.add(visit);
-        VISITS.put(petId, visits);
+        VISITS.put(visit.getPetId(), visits);
     }
 
 }

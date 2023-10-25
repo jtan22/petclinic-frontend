@@ -48,7 +48,8 @@ public class VisitController {
         if (bindingResult.hasErrors()) {
             return "visitForm";
         }
-        visitService.save(petId, visit);
+        visit.setPetId(petId);
+        visitService.save(visit);
         return "redirect:/owners?ownerId=" + ownerId;
     }
 
