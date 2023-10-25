@@ -1,6 +1,7 @@
 package com.bw.petclinic.frontend.service;
 
 import com.bw.petclinic.frontend.domain.Pet;
+import com.bw.petclinic.frontend.domain.PetType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class PetServiceImpl implements PetService {
         return null;
     }
 
-    public List<String> getPetTypes() {
+    public List<PetType> getPetTypes() {
         return null;
     }
 

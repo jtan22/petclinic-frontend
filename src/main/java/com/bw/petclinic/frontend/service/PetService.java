@@ -1,6 +1,7 @@
 package com.bw.petclinic.frontend.service;
 
 import com.bw.petclinic.frontend.domain.Pet;
+import com.bw.petclinic.frontend.domain.PetType;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface PetService {
 
     List<Pet> getPets(int ownerId);
 
-    List<String> getPetTypes();
+    List<PetType> getPetTypes();
 
     Pet getById(int id);
 

@@ -12,7 +12,7 @@ public class Pet {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-    private String type;
+    private PetType type;
     private int ownerId;
     private Set<Visit> visits = new LinkedHashSet<>();
 
@@ -20,7 +20,7 @@ public class Pet {
 
     }
 
-    public Pet(int id, String name, LocalDate birthDate, String type, int ownerId) {
+    public Pet(int id, String name, LocalDate birthDate, PetType type, int ownerId) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
@@ -52,11 +52,11 @@ public class Pet {
         this.birthDate = birthDate;
     }
 
-    public String getType() {
+    public PetType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PetType type) {
         this.type = type;
     }
 
