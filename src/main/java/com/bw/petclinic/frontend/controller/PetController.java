@@ -20,11 +20,11 @@ public class PetController {
     private static final Logger LOG = LoggerFactory.getLogger(PetController.class);
 
     @Autowired
-    @Qualifier("ownerServiceDummy")
+    @Qualifier("ownerServiceImpl")
     private OwnerService ownerService;
 
     @Autowired
-    @Qualifier("petServiceDummy")
+    @Qualifier("petServiceImpl")
     private PetService petService;
 
     @GetMapping("/pets/new")
@@ -51,7 +51,8 @@ public class PetController {
         if (bindingResult.hasErrors()) {
             return "petForm";
         }
-        petService.save(ownerId, pet);
+        pet.setOwnerId(ownerId);
+        petService.save(pet);
         return "redirect:/owners?ownerId=" + ownerId;
     }
 
@@ -65,7 +66,8 @@ public class PetController {
         Pet existingPet = petService.getById(petId);
         pet.setId(existingPet.getId());
         pet.setVisits(existingPet.getVisits());
-        petService.save(ownerId, pet);
+        pet.setOwnerId(ownerId);
+        petService.save(pet);
         return "redirect:/owners?ownerId=" + ownerId;
     }
 

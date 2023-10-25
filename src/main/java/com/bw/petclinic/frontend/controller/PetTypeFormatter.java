@@ -15,7 +15,7 @@ public class PetTypeFormatter implements Formatter<PetType> {
 
     private List<PetType> petTypes;
 
-    public PetTypeFormatter(@Qualifier("petServiceDummy") PetService petService) {
+    public PetTypeFormatter(@Qualifier("petServiceImpl") PetService petService) {
         petTypes = petService.getPetTypes();
     }
 

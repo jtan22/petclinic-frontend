@@ -70,19 +70,19 @@ public class PetServiceDummy implements PetService {
                 .orElseGet(Pet::new);
     }
 
-    public void save(int ownerId, Pet pet) {
+    public Pet save(Pet pet) {
         if (pet.getId() == 0) {
             pet.setId(LAST_PET_ID.incrementAndGet());
-            pet.setOwnerId(ownerId);
         }
         List<Pet> pets = new ArrayList<>();
-        for (Pet p : PETS.get(ownerId)) {
+        for (Pet p : PETS.get(pet.getOwnerId())) {
             if (p.getId() != pet.getId()) {
                 pets.add(p);
             }
         }
         pets.add(pet);
-        PETS.put(ownerId, pets);
+        PETS.put(pet.getOwnerId(), pets);
+        return pet;
     }
 
 }

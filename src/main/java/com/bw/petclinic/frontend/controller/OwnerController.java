@@ -31,7 +31,7 @@ public class OwnerController {
     private OwnerService ownerService;
 
     @Autowired
-    @Qualifier("petServiceDummy")
+    @Qualifier("petServiceImpl")
     private PetService petService;
 
     @Autowired
