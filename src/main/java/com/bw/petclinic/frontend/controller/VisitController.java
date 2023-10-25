@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class VisitController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(VisitController.class);
+
     @Autowired
     @Qualifier("ownerServiceImpl")
     private OwnerService ownerService;
@@ -29,8 +31,6 @@ public class VisitController {
     @Autowired
     @Qualifier("visitServiceImpl")
     private VisitService visitService;
-
-    private static final Logger LOG = LoggerFactory.getLogger(VisitController.class);
 
     @GetMapping("/visits/new")
     public String newVisit(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Model model) {

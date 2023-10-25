@@ -16,6 +16,8 @@ import java.util.ArrayList;
 @Service
 public class VetServiceImpl implements VetService {
 
+    private static final String GET_PAGED_VETS = "/vets?pageNumber=%d&pageSize=%d";
+
     @Value("${rest.service.vets}")
     private String restServiceVets;
 
@@ -23,7 +25,7 @@ public class VetServiceImpl implements VetService {
     private RestTemplate restTemplate;
 
     public Page<Vet> getVets(int pageNumber, int pageSize) {
-        String uri = String.format(restServiceVets, pageNumber, pageSize);
+        String uri = String.format(restServiceVets + GET_PAGED_VETS, pageNumber, pageSize);
         PagedVets pagedVets = restTemplate.getForObject(uri, PagedVets.class);
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         if (pagedVets == null) {

@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Set;
-
 @Controller
 public class OwnerController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OwnerController.class);
 
     private static final int PAGE_SIZE = 5;
 
@@ -37,8 +36,6 @@ public class OwnerController {
     @Autowired
     @Qualifier("visitServiceImpl")
     private VisitService visitService;
-
-    private static final Logger LOG = LoggerFactory.getLogger(OwnerController.class);
 
     @GetMapping("/owners/find")
     public String findOwners(Model model) {

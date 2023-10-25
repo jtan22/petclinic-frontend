@@ -2,6 +2,9 @@ package com.bw.petclinic.frontend.domain;
 
 import java.util.List;
 
+/**
+ * Wrapper class to wrap a Page of Vets.
+ */
 public class PagedVets {
 
     private List<Vet> vets;

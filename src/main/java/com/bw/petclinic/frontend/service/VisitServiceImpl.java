@@ -13,22 +13,23 @@ import java.util.List;
 @Service
 public class VisitServiceImpl implements VisitService {
 
-    @Value("${rest.service.visits.pet}")
-    private String restServiceVisitsPet;
+    private static final String GET_VISITS_BY_PET_ID = "/visits/pet?petId=%d";
+    private static final String SAVE_VISIT = "/visits/visit";
 
-    @Value("${rest.service.visits.save}")
-    private String restServiceVisitsSave;
+    @Value("${rest.service.visits}")
+    private String restServiceVisits;
 
     @Autowired
     private RestTemplate restTemplate;
 
     public List<Visit> getVisits(int petId) {
-        return restTemplate.exchange(String.format(restServiceVisitsPet, petId), HttpMethod.GET, null,
+        String uri = String.format(restServiceVisits + GET_VISITS_BY_PET_ID, petId);
+        return restTemplate.exchange(uri, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Visit>>() {}).getBody();
     }
 
     public Visit save(Visit visit) {
-        return restTemplate.postForObject(restServiceVisitsSave, visit, Visit.class);
+        return restTemplate.postForObject(restServiceVisits + SAVE_VISIT, visit, Visit.class);
     }
 
 }
