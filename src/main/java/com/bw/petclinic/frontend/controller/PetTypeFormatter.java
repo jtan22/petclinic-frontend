@@ -2,6 +2,7 @@ package com.bw.petclinic.frontend.controller;
 
 import com.bw.petclinic.frontend.domain.PetType;
 import com.bw.petclinic.frontend.service.PetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ import java.util.Locale;
 @Component
 public class PetTypeFormatter implements Formatter<PetType> {
 
-    private List<PetType> petTypes;
+    @Autowired
+    @Qualifier("petServiceImpl")
+    private PetService petService;
 
-    public PetTypeFormatter(@Qualifier("petServiceImpl") PetService petService) {
-        petTypes = petService.getPetTypes();
-    }
+    private List<PetType> petTypes;
 
     /**
      * Make sure PetType.toString() returns 'name' only.
@@ -41,7 +42,7 @@ public class PetTypeFormatter implements Formatter<PetType> {
      */
     @Override
     public PetType parse(String text, Locale locale) throws ParseException {
-        for (PetType type : petTypes) {
+        for (PetType type : getPetTypes()) {
             if (type.getName().equals(text)) {
                 return type;
             }
@@ -49,4 +50,14 @@ public class PetTypeFormatter implements Formatter<PetType> {
         throw new ParseException("type not found: " + text, 0);
     }
 
+    public List<PetType> getPetTypes() {
+        if (petTypes == null) {
+            petTypes = petService.getPetTypes();
+        }
+        return petTypes;
+    }
+
+    public void setPetTypes(List<PetType> petTypes) {
+        this.petTypes = petTypes;
+    }
 }
