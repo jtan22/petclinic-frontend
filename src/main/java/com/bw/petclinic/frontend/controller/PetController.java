@@ -6,7 +6,6 @@ import com.bw.petclinic.frontend.service.PetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +19,9 @@ public class PetController {
     private static final Logger LOG = LoggerFactory.getLogger(PetController.class);
 
     @Autowired
-    @Qualifier("ownerServiceImpl")
     private OwnerService ownerService;
 
     @Autowired
-    @Qualifier("petServiceImpl")
     private PetService petService;
 
     @GetMapping("/pets/new")

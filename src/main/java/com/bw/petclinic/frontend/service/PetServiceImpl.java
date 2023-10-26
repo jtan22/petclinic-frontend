@@ -4,6 +4,7 @@ import com.bw.petclinic.frontend.domain.Pet;
 import com.bw.petclinic.frontend.domain.PetType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Service
+@Primary
 public class PetServiceImpl implements PetService {
 
     private static final String GET_PET_NAMES_BY_OWNER_ID = "/pets/names?ownerId=%d";

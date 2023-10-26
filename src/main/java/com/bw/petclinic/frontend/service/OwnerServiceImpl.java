@@ -4,6 +4,7 @@ import com.bw.petclinic.frontend.domain.Owner;
 import com.bw.petclinic.frontend.domain.PagedOwners;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 
 @Service
+@Primary
 public class OwnerServiceImpl implements OwnerService {
 
     private static final String FIND_OWNER_BY_LAST_NAME = "/owners/find?lastName=%s&pageNumber=%d&pageSize=%d";
