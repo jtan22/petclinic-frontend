@@ -5,6 +5,8 @@ import com.bw.petclinic.frontend.domain.Pet;
 import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
 import com.bw.petclinic.frontend.service.VisitService;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,5 +112,15 @@ public class OwnerController {
         }
         model.addAttribute("owner", owner);
         return "ownerDetails";
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        LOG.info("Constructed OwnerController [" + this + "]");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        LOG.info("Destroying OwnerController [" + this + "]");
     }
 }
