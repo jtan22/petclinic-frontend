@@ -25,8 +25,12 @@ public class PetServiceImpl implements PetService {
     @Value("${rest.service.pets}")
     private String restServicePets;
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public PetServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public String getPetNames(int ownerId) {
         String uri = String.format(restServicePets + GET_PET_NAMES_BY_OWNER_ID, ownerId);

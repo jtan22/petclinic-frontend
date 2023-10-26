@@ -18,11 +18,15 @@ public class PetController {
 
     private static final Logger LOG = LoggerFactory.getLogger(PetController.class);
 
-    @Autowired
-    private OwnerService ownerService;
+    private final OwnerService ownerService;
+
+    private final PetService petService;
 
     @Autowired
-    private PetService petService;
+    public PetController(OwnerService ownerService, PetService petService) {
+        this.ownerService = ownerService;
+        this.petService = petService;
+    }
 
     @GetMapping("/pets/new")
     public String newPet(@RequestParam("ownerId") int ownerId, Model model) {

@@ -21,8 +21,12 @@ public class VisitServiceImpl implements VisitService {
     @Value("${rest.service.visits}")
     private String restServiceVisits;
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public VisitServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<Visit> getVisits(int petId) {
         String uri = String.format(restServiceVisits + GET_VISITS_BY_PET_ID, petId);

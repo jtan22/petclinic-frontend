@@ -17,8 +17,12 @@ public class VetController {
     private static final Logger LOG = LoggerFactory.getLogger(VetController.class);
     private static final int PAGE_SIZE = 3;
 
+    private final VetService vetService;
+
     @Autowired
-    private VetService vetService;
+    public VetController(VetService vetService) {
+        this.vetService = vetService;
+    }
 
     @GetMapping("/vets/list")
     public String listVets(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {

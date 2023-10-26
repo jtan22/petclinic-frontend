@@ -3,7 +3,6 @@ package com.bw.petclinic.frontend.controller;
 import com.bw.petclinic.frontend.domain.PetType;
 import com.bw.petclinic.frontend.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +13,14 @@ import java.util.Locale;
 @Component
 public class PetTypeFormatter implements Formatter<PetType> {
 
-    @Autowired
-    @Qualifier("petServiceImpl")
-    private PetService petService;
+    private final PetService petService;
 
     private List<PetType> petTypes;
+
+    @Autowired
+    public PetTypeFormatter(PetService petService) {
+        this.petService = petService;
+    }
 
     /**
      * Make sure PetType.toString() returns 'name' only.

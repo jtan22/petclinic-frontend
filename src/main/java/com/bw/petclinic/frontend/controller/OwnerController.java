@@ -24,14 +24,18 @@ public class OwnerController {
 
     private static final int PAGE_SIZE = 5;
 
-    @Autowired
-    private OwnerService ownerService;
+    private final OwnerService ownerService;
+
+    private final PetService petService;
+
+    private final VisitService visitService;
 
     @Autowired
-    private PetService petService;
-
-    @Autowired
-    private VisitService visitService;
+    public OwnerController(OwnerService ownerService, PetService petService, VisitService visitService) {
+        this.ownerService = ownerService;
+        this.petService = petService;
+        this.visitService = visitService;
+    }
 
     @GetMapping("/owners/find")
     public String findOwners(Model model) {

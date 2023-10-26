@@ -19,14 +19,18 @@ public class VisitController {
 
     private static final Logger LOG = LoggerFactory.getLogger(VisitController.class);
 
-    @Autowired
-    private OwnerService ownerService;
+    private final OwnerService ownerService;
+
+    private final PetService petService;
+
+    private final VisitService visitService;
 
     @Autowired
-    private PetService petService;
-
-    @Autowired
-    private VisitService visitService;
+    public VisitController(OwnerService ownerService, PetService petService, VisitService visitService) {
+        this.ownerService = ownerService;
+        this.petService = petService;
+        this.visitService = visitService;
+    }
 
     @GetMapping("/visits/new")
     public String newVisit(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Model model) {

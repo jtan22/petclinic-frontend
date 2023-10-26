@@ -23,8 +23,12 @@ public class VetServiceImpl implements VetService {
     @Value("${rest.service.vets}")
     private String restServiceVets;
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public VetServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public Page<Vet> getVets(int pageNumber, int pageSize) {
         String uri = String.format(restServiceVets + GET_PAGED_VETS, pageNumber, pageSize);

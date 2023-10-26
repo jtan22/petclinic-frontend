@@ -25,8 +25,12 @@ public class OwnerServiceImpl implements OwnerService {
     @Value("${rest.service.owners}")
     private String restServiceOwners;
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public OwnerServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public Page<Owner> findByLastName(String lastName, int pageNumber, int pageSize) {
         String uri = String.format(restServiceOwners + FIND_OWNER_BY_LAST_NAME, lastName, pageNumber, pageSize);
