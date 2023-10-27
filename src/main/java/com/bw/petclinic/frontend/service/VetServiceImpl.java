@@ -1,18 +1,15 @@
 package com.bw.petclinic.frontend.service;
 
-import com.bw.petclinic.frontend.domain.PagedVets;
 import com.bw.petclinic.frontend.domain.Vet;
+import com.bw.petclinic.frontend.domain.CustomPageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
 
 @Service
 @Primary
@@ -32,12 +29,8 @@ public class VetServiceImpl implements VetService {
 
     public Page<Vet> getVets(int pageNumber, int pageSize) {
         String uri = String.format(restServiceVets + GET_PAGED_VETS, pageNumber, pageSize);
-        PagedVets pagedVets = restTemplate.getForObject(uri, PagedVets.class);
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        if (pagedVets == null) {
-            return new PageImpl<>(new ArrayList<>(), pageable, 0);
-        }
-        return new PageImpl<>(pagedVets.getVets(), pageable, pagedVets.getTotalVets());
+        return restTemplate.exchange(uri, HttpMethod.GET, null,
+                new ParameterizedTypeReference<CustomPageImpl<Vet>>() {}).getBody();
     }
 
 }
