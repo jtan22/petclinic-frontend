@@ -20,7 +20,7 @@ import java.util.List;
 @Primary
 public class VetServiceImpl implements VetService {
 
-    private static final String GET_HAL_PAGED_VETS = "/data-rest/vets?page=%d&size=%d";
+    private static final String GET_HAL_PAGED_VETS = "/data-rest/veterinarians?page=%d&size=%d";
 
     @Value("${rest.service.vets}")
     private String restServiceVets;
