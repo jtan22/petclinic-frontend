@@ -68,14 +68,7 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- For testing login -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		
-		<!-- For production login -->
+		<!-- For login -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
