@@ -7,6 +7,7 @@ import com.bw.petclinic.frontend.service.PetService;
 import com.bw.petclinic.frontend.service.VisitService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +55,11 @@ public class OwnerController {
     }
 
     @PostMapping("/owners/new")
-    public String addOwner(Owner owner, BindingResult bindingResult) {
+    public String addOwner(@Valid Owner owner, BindingResult bindingResult) {
         LOG.info("POST /owners/new");
+        if (bindingResult.hasErrors()) {
+            return "ownerForm";
+        }
         Owner savedOwner = ownerService.save(owner);
         return "redirect:/owners?ownerId=" + savedOwner.getId();
     }
@@ -68,7 +72,7 @@ public class OwnerController {
     }
 
     @PostMapping("/owners/edit")
-    public String updateOwner(@RequestParam("ownerId") int ownerId, Owner owner, BindingResult bindingResult) {
+    public String updateOwner(@RequestParam("ownerId") int ownerId, @Valid Owner owner, BindingResult bindingResult) {
         LOG.info("POST /owners/edit");
         if (bindingResult.hasErrors()) {
             return "ownerForm";

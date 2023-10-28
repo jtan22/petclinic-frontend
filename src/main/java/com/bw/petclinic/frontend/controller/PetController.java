@@ -3,6 +3,7 @@ package com.bw.petclinic.frontend.controller;
 import com.bw.petclinic.frontend.domain.Pet;
 import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,11 @@ public class PetController {
     }
 
     @PostMapping("/pets/new")
-    public String addPet(@RequestParam("ownerId") int ownerId, Pet pet, BindingResult bindingResult) {
+    public String addPet(@RequestParam("ownerId") int ownerId, @Valid Pet pet, BindingResult bindingResult, Model model) {
         LOG.info("POST /pets/new with ownerId [" + ownerId + "]");
         if (bindingResult.hasErrors()) {
+            model.addAttribute("owner", ownerService.getById(ownerId));
+            model.addAttribute("types", petService.getPetTypes());
             return "petForm";
         }
         pet.setOwnerId(ownerId);
@@ -58,10 +61,12 @@ public class PetController {
     }
 
     @PostMapping("/pets/edit")
-    public String updatePet(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Pet pet,
-                            BindingResult bindingResult) {
+    public String updatePet(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, @Valid Pet pet,
+                            BindingResult bindingResult, Model model) {
         LOG.info("POST /pets/edit with ownerId [" + ownerId + "]");
         if (bindingResult.hasErrors()) {
+            model.addAttribute("owner", ownerService.getById(ownerId));
+            model.addAttribute("types", petService.getPetTypes());
             return "petForm";
         }
         Pet existingPet = petService.getById(petId);

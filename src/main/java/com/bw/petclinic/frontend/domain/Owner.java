@@ -1,17 +1,33 @@
 package com.bw.petclinic.frontend.domain;
 
+import jakarta.validation.constraints.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Owner {
 
     private int id;
+
+    @NotBlank(message = "First Name is required")
     private String firstName;
+
+    @NotBlank(message = "Last Name is required")
     private String lastName;
+
+    @NotBlank(message = "Address is required")
     private String address;
+
+    @NotBlank(message = "City is required")
+    @Size(min = 4, message = "City must have at least 4 characters")
     private String city;
+
+    @NotBlank(message = "Telephone is required")
+    @Pattern(regexp = "[0-9]{10}", message = "Telephone must be 10 digits")
     private String telephone;
+
     private String petNames;
+
     private List<Pet> pets = new ArrayList<>();
 
     public Owner() {

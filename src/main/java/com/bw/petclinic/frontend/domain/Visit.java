@@ -1,12 +1,22 @@
 package com.bw.petclinic.frontend.domain;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Visit {
 
     private int id;
+
+    @NotNull(message = "Visit Date is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
+
+    @NotBlank(message = "Description is required")
     private String description;
+
     private int petId;
 
     public Visit() {

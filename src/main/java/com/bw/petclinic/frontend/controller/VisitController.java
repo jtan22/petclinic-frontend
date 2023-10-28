@@ -4,6 +4,7 @@ import com.bw.petclinic.frontend.domain.Visit;
 import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
 import com.bw.petclinic.frontend.service.VisitService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,12 @@ public class VisitController {
     }
 
     @PostMapping("/visits/new")
-    public String addVisit(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Visit visit,
-                           BindingResult bindingResult) {
+    public String addVisit(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, @Valid Visit visit,
+                           BindingResult bindingResult, Model model) {
         LOG.info("POST /visits/new with ownerId [" + ownerId + "], petId [" + petId + "]");
         if (bindingResult.hasErrors()) {
+            model.addAttribute("owner", ownerService.getById(ownerId));
+            model.addAttribute("pet", petService.getById(petId));
             return "visitForm";
         }
         visit.setPetId(petId);

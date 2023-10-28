@@ -13,10 +13,9 @@
                 <input th:case="'text'" type="text" th:field="*{__${name}__}" />
                 <input th:case="'date'" type="date" th:field="*{__${name}__}" />
             </div>
-            <span th:if="${#fields.hasErrors(name)}">
-                <span th:errors="*{__${name}__}"></span>
-            </span>
+            <span th:if="${#fields.hasErrors(name)}" th:errors="*{__${name}__}" class="error"></span>
         </div>
+        <br>
     </th:block>
 </form>
 </body>
