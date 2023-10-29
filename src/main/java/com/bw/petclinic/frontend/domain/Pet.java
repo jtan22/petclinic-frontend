@@ -1,7 +1,5 @@
 package com.bw.petclinic.frontend.domain;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -12,11 +10,9 @@ public class Pet {
 
     private int id;
 
-    @NotBlank(message = "Name is required")
     private String name;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Birth Date is required")
     private LocalDate birthDate;
 
     private PetType type;

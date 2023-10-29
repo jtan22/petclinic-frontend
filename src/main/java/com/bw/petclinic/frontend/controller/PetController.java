@@ -3,6 +3,7 @@ package com.bw.petclinic.frontend.controller;
 import com.bw.petclinic.frontend.domain.Pet;
 import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
+import com.bw.petclinic.frontend.validation.PetValidator;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +33,10 @@ public class PetController {
         this.petService = petService;
     }
 
-    @InitBinder()
+    @InitBinder("pet")
     public void initBind(WebDataBinder dataBinder) {
         dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+        dataBinder.setValidator(new PetValidator());
     }
 
     @GetMapping("/pets/new")
