@@ -1,5 +1,6 @@
 package com.bw.petclinic.frontend.domain;
 
+import com.bw.petclinic.frontend.validation.Prefix;
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Owner {
     private String lastName;
 
     @NotBlank(message = "Address is required")
+    @Prefix(value = "ADD", message = "Address must starts with ADD")
     private String address;
 
     @NotBlank(message = "City is required")
