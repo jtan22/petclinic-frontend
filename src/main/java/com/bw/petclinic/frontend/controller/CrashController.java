@@ -16,4 +16,10 @@ public class CrashController {
         throw new RuntimeException("Expected Exception");
     }
 
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        LOG.info("Get /access-denied");
+        return "access-denied";
+    }
+
 }

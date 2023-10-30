@@ -42,6 +42,7 @@ public class SecurityConfiguration {
 //                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/authenticate").permitAll())
                 .logout(LogoutConfigurer::permitAll)
+                .exceptionHandling(handler -> handler.accessDeniedPage("/access-denied"))
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
