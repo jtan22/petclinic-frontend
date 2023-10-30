@@ -5,6 +5,7 @@
     <title>Custom Login</title>
     <style>
         .error { color:red }
+        .logout { color:green }
     </style>
 </head>
 <body>
@@ -12,6 +13,9 @@
 <form th:action="@{/authenticate}" method="post">
     <div th:if="${param.error}">
         <i class="error">Invalid Username/Password</i>
+    </div>
+    <div th:if="${param.logout}">
+        <i class="logout">You have been logged out</i>
     </div>
     <p>
         Username: <input type="text" name="username" />
