@@ -5,8 +5,6 @@ import com.bw.petclinic.frontend.service.OwnerService;
 import com.bw.petclinic.frontend.service.PetService;
 import com.bw.petclinic.frontend.validation.PetValidator;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -21,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PetController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PetController.class);
-
     private final OwnerService ownerService;
 
     private final PetService petService;
@@ -34,14 +30,13 @@ public class PetController {
     }
 
     @InitBinder("pet")
-    public void initBind(WebDataBinder dataBinder) {
+    private void initBind(WebDataBinder dataBinder) {
         dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
         dataBinder.setValidator(new PetValidator());
     }
 
     @GetMapping("/pets/new")
     public String newPet(@RequestParam("ownerId") int ownerId, Model model) {
-        LOG.info("GET /pets/new with ownerId [" + ownerId + "]");
         model.addAttribute("owner", ownerService.getById(ownerId));
         model.addAttribute("pet", new Pet());
         model.addAttribute("types", petService.getPetTypes());
@@ -50,7 +45,6 @@ public class PetController {
 
     @GetMapping("/pets/edit")
     public String editPet(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, Model model) {
-        LOG.info("GET /pets/edit with ownerId [" + ownerId + "], petId [" + petId + "]");
         model.addAttribute("owner", ownerService.getById(ownerId));
         model.addAttribute("pet", petService.getById(petId));
         model.addAttribute("types", petService.getPetTypes());
@@ -59,7 +53,6 @@ public class PetController {
 
     @PostMapping("/pets/new")
     public String addPet(@RequestParam("ownerId") int ownerId, @Valid Pet pet, BindingResult bindingResult, Model model) {
-        LOG.info("POST /pets/new with ownerId [" + ownerId + "]");
         if (bindingResult.hasErrors()) {
             model.addAttribute("owner", ownerService.getById(ownerId));
             model.addAttribute("types", petService.getPetTypes());
@@ -73,7 +66,6 @@ public class PetController {
     @PostMapping("/pets/edit")
     public String updatePet(@RequestParam("ownerId") int ownerId, @RequestParam("petId") int petId, @Valid Pet pet,
                             BindingResult bindingResult, Model model) {
-        LOG.info("POST /pets/edit with ownerId [" + ownerId + "]");
         if (bindingResult.hasErrors()) {
             model.addAttribute("owner", ownerService.getById(ownerId));
             model.addAttribute("types", petService.getPetTypes());

@@ -44,27 +44,24 @@ public class OwnerController {
     }
 
     @InitBinder()
-    public void initBind(WebDataBinder dataBinder) {
+    private void initBind(WebDataBinder dataBinder) {
         dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
     @GetMapping("/owners/find")
     public String findOwners(Model model) {
-        LOG.info("Get /owners/find");
         model.addAttribute("owner", new Owner());
         return "ownerFind";
     }
 
     @GetMapping("/owners/new")
     public String newOwner(Model model) {
-        LOG.info("Get /owners/new");
         model.addAttribute("owner", new Owner());
         return "ownerForm";
     }
 
     @PostMapping("/owners/new")
     public String addOwner(@Valid Owner owner, BindingResult bindingResult) {
-        LOG.info("POST /owners/new");
         if (bindingResult.hasErrors()) {
             return "ownerForm";
         }
@@ -74,15 +71,14 @@ public class OwnerController {
 
     @GetMapping("/owners/edit")
     public String editOwner(@RequestParam("ownerId") int ownerId, Model model) {
-        LOG.info("Get /owners/edit?ownerId");
         model.addAttribute("owner", ownerService.getById(ownerId));
         return "ownerForm";
     }
 
     @PostMapping("/owners/edit")
     public String updateOwner(@RequestParam("ownerId") int ownerId, @Valid Owner owner, BindingResult bindingResult) {
-        LOG.info("POST /owners/edit");
         if (bindingResult.hasErrors()) {
+            owner.setId(ownerId);
             return "ownerForm";
         }
         owner.setId(ownerId);
@@ -93,7 +89,6 @@ public class OwnerController {
     @GetMapping("/owners/list")
     public String listOwners(@RequestParam(name = "page", defaultValue = "1") int page, Owner owner,
                              BindingResult bindingResult, Model model) {
-        LOG.info("GET /owners/list?page");
         if (StringUtils.isBlank(owner.getLastName())) {
             owner.setLastName("");
         }
@@ -105,9 +100,6 @@ public class OwnerController {
         for (Owner o : owners.getContent()) {
             o.setPetNames(petService.getPetNames(o.getId()));
         }
-        LOG.debug("Current page number = [" + page + "]");
-        LOG.debug("Current page size = [" + owners.getContent().size() + "]");
-        LOG.debug("Total page number = [" + owners.getTotalPages() + "]");
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", owners.getTotalPages());
         model.addAttribute("owners", owners.getContent());
@@ -116,7 +108,6 @@ public class OwnerController {
 
     @GetMapping("/owners")
     public String ownerDetails(@RequestParam("ownerId") int ownerId, Model model) {
-        LOG.info("GET /owners?ownerId");
         Owner owner = ownerService.getById(ownerId);
         owner.setPets(petService.getPets(ownerId));
         for (Pet pet : owner.getPets()) {
