@@ -15,6 +15,10 @@
 <nav>
     <div>
         <a th:href="@{/}"><img th:src="@{/images/spring-boot.png}" /></a>
+        <div sec:authorize="isAuthenticated()">
+            <b>User:</b> <span sec:authentication="name"></span>
+            <b>Roles:</b> <span sec:authentication="principal.authorities"></span>
+        </div>
         <div>
             <ul th:remove="all">
                 <li th:fragment="menuItem (link, active, title, glyph, text)">

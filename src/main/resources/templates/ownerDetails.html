@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{fragments/layout :: layout (~{::body}, 'owners')}">
 <head>
     <meta charset="UTF-8">
     <title>Pet Clinic Owner Details</title>
@@ -12,8 +15,8 @@
     <tr><th>City</th><td th:text="${owner.city}"></td></tr>
     <tr><th>Telephone</th><td th:text="${owner.telephone}"></td></tr>
 </table>
-<a th:href="@{/owners/edit?ownerId=__${owner.id}__}">Edit Owner</a>
-<a th:href="@{/pets/new?ownerId=__${owner.id}__}">Add Pet</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/owners/edit?ownerId=__${owner.id}__}">Edit Owner</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/pets/new?ownerId=__${owner.id}__}">Add Pet</a>
 <br>
 <h2>Pets and Visits</h2>
 <table>
@@ -35,8 +38,8 @@
                     </tr>
                 </tbody>
             </table>
-            <a th:href="@{/pets/edit?ownerId=__${owner.id}__&petId=__${pet.id}__}">Edit Pet</a>
-            <a th:href="@{/visits/new?ownerId=__${owner.id}__&petId=__${pet.id}__}">Add Visit</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/pets/edit?ownerId=__${owner.id}__&petId=__${pet.id}__}">Edit Pet</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/visits/new?ownerId=__${owner.id}__&petId=__${pet.id}__}">Add Visit</a>
         </td>
     </tr>
 </table>
