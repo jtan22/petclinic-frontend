@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       th:fragment="layout (template, menu)">
 <head>
     <meta charset="UTF-8">
@@ -34,7 +35,7 @@
 <div>
     <th:block th:insert="${template}"></th:block>
     <br>
-    <form th:action="@{/logout}" method="post">
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
         <input type="submit" value="Logout" />
     </form>
     <br>
