@@ -39,7 +39,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/vets/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/actuator/**").authenticated()
                         .anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
+                .formLogin(form -> form.loginPage("/login").loginProcessingUrl("/authenticate").permitAll())
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
